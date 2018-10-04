@@ -1,0 +1,2 @@
+class GameHistoriesController < ApplicationController
+end
