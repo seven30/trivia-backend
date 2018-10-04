@@ -31,4 +31,4 @@ RSpec.describe "Users", type: :request do
       expect(response.headers["Authorization"]).to be_blank
     end
   end
-end
+end 
