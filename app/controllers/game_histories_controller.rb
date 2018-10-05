@@ -2,10 +2,13 @@ class GameHistoriesController < ApplicationController
   before_action :get_user
 
   def index
-    # game_histories = GameHistory.all
-    p get_user
     game_histories = User.find(get_user.id).game_histories
-    render json: game_histories
+
+    if game_histories.valid?
+      render json: game_histories
+    else
+      render json: game_histories.errors, status: :unprocessable_entity
+    end
   end
 
   def create
