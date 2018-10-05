@@ -37,7 +37,17 @@ describe "Game Histories API" do
     expect(new_game_history.game_mode).to eq('classic')
   end
 
-  it "shows a single game history"
+  it "shows a single game history" do
+    GameHistory.create(game_mode:'classic', correct_answers:2, total_questions: 10, user_id:@user1.id)
+
+    get '/users/1/game_histories/1'
+
+    json = JSON.parse(response.body)
+
+    expect(response).to be_success
+
+    expect(json["correct_answers"]).to eq(2)
+  end
 
   it "can destroy a single game history"
 
