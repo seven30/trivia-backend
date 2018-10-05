@@ -6,13 +6,8 @@ class UsersController < ApplicationController
 
   def show
     id = params[:id]
-    user = User.find_by_id(user_params)
+    user = User.find(id)
 
     render json: user
-  end
-
-  private
-  def user_params
-    params.require(:user).permit(:email, :password, :username)
   end
 end
