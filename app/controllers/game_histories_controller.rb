@@ -3,20 +3,19 @@ class GameHistoriesController < ApplicationController
 
   def index
     game_histories = User.find(get_user.id).game_histories
-
-    if game_histories.valid?
-      render json: game_histories
-    else
-      render json: game_histories.errors, status: :unprocessable_entity
-    end
+    render json: game_histories
   end
 
   def create
     #Create a new game history
     game_history = GameHistory.create(game_history_params)
 
+    if game_history.valid?
+      render json: game_history
+    else
+      render json: game_history.errors, status: :unprocessable_entity
+    end
     #respond with our new game history
-    render json: game_history
   end
 
   def show
@@ -26,11 +25,11 @@ class GameHistoriesController < ApplicationController
     render json: game_history
   end
 
-  def update
-    id = params[:id]
-    game_history = GameHistory.find_by_user_id(get_user).update(id, game_history_params)
-    render json: game_history
-  end
+  # def update
+  #   id = params[:id]
+  #   game_history = GameHistory.find_by_user_id(get_user).update(id, game_history_params)
+  #   render json: game_history
+  # end
 
   def destroy
     id = params[:id]

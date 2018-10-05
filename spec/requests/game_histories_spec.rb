@@ -37,6 +37,10 @@ describe "Game Histories API" do
     expect(new_game_history.game_mode).to eq('classic')
   end
 
+  it "shows a single game history"
+
+  it "can destroy a single game history"
+
   it "doesn't create a game history without a game mode" do
     game_history_params = {
       game_history: {
