@@ -31,7 +31,8 @@ class GameHistoriesController < ApplicationController
 
   def destroy
     id = params[:id]
-    GameHistory.find_by_user_id(get_user).find(id).destroy
+    game_history = GameHistory.find_by_user_id(get_user)
+    game_history.destroy
   end
 
   private
