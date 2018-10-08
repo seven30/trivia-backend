@@ -8,13 +8,9 @@ describe "Game Histories API" do
   it "gets a list of Game Histories" do
     #Create a game history in the Test Database
     GameHistory.create(game_mode:'classic', correct_answers:2, total_questions: 10, user_id:@user1.id)
-
     get '/users/1/game_histories'
-
     json = JSON.parse(response.body)
-
     expect(response).to be_success
-
     expect(json.length).to eq(1)
   end
 
@@ -29,17 +25,37 @@ describe "Game Histories API" do
     }
 
     post '/users/1/game_histories', params: game_history_params
-
     expect(response).to be_success
-
     new_game_history = GameHistory.first
-
     expect(new_game_history.game_mode).to eq('classic')
   end
 
-  it "shows a single game history"
+  it "shows a single game history" do
+    GameHistory.create(game_mode:'classic', correct_answers:2, total_questions: 10, user_id:@user1.id)
 
-  it "can destroy a single game history"
+    get '/users/1/game_histories/1'
+    json = JSON.parse(response.body)
+    expect(response).to be_success
+    expect(json["correct_answers"]).to eq(2)
+  end
+
+  it "can destroy a single game history" do
+    game1 = GameHistory.create(id: 1, game_mode:'classic', correct_answers:2, total_questions: 10, user_id:@user1.id)
+
+    get "/users/#{@user1.id}/game_histories"
+    p response.body
+    json = JSON.parse(response.body)
+    expect(response).to be_success
+    expect(json.length).to eq 1
+
+    delete "/users/#{@user1.id}/game_histories/#{game1.id}"
+    get "/users/#{@user1.id}/game_histories"
+    json = JSON.parse(response.body)
+
+    expect(response).to be_success
+    expect(json.length).to eq 0
+
+  end
 
   it "doesn't create a game history without a game mode" do
     game_history_params = {
@@ -51,11 +67,8 @@ describe "Game Histories API" do
     }
 
     post '/users/1/game_histories', params: game_history_params
-
     expect(response.status).to eq(422)
-
     json = JSON.parse(response.body)
-
     expect(json['game_mode']).to include("can't be blank")
   end
 end

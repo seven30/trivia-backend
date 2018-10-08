@@ -7,7 +7,6 @@ class GameHistoriesController < ApplicationController
   end
 
   def create
-    #Create a new game history
     game_history = GameHistory.create(game_history_params)
 
     if game_history.valid?
@@ -15,7 +14,6 @@ class GameHistoriesController < ApplicationController
     else
       render json: game_history.errors, status: :unprocessable_entity
     end
-    #respond with our new game history
   end
 
   def show
@@ -33,11 +31,12 @@ class GameHistoriesController < ApplicationController
 
   def destroy
     id = params[:id]
-    GameHistory.find_by_user_id(get_user).find(id).destroy
+    game_history = GameHistory.find_by_user_id(get_user)
+    game_history.destroy
   end
 
-  # Handle strong params, so we are secure
   private
+  # Handle strong params, so we are secure
   def game_history_params
     params.require(:game_history).permit(:game_mode, :correct_answers, :total_questions, :user_id)
   end
