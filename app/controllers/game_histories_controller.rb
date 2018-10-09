@@ -3,7 +3,7 @@ class GameHistoriesController < ApplicationController
 
   def index
     game_histories = User.find(get_user.id).game_histories
-    render json: game_histories
+    render json: {username: get_user.username, history: game_histories}
   end
 
   def create
@@ -20,7 +20,7 @@ class GameHistoriesController < ApplicationController
     id = params[:id]
     game_history = GameHistory.find_by_user_id(get_user)
 
-    render json: game_history
+    render json: {username: get_user.username, history: game_history}
   end
 
   # def update
