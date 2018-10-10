@@ -11,7 +11,7 @@ describe "Game Histories API" do
     get '/users/1/game_histories'
     json = JSON.parse(response.body)
     expect(response).to be_success
-    expect(json.length).to eq(1)
+    expect(json.length).to eq(2)
   end
 
   it "creates a list of game histories" do
@@ -36,24 +36,24 @@ describe "Game Histories API" do
     get '/users/1/game_histories/1'
     json = JSON.parse(response.body)
     expect(response).to be_success
-    expect(json["correct_answers"]).to eq(2)
+    expect(json["username"]).to eq("user1")
   end
 
   it "can destroy a single game history" do
     game1 = GameHistory.create(id: 1, game_mode:'classic', correct_answers:2, total_questions: 10, user_id:@user1.id)
 
     get "/users/#{@user1.id}/game_histories"
-    p response.body
     json = JSON.parse(response.body)
     expect(response).to be_success
-    expect(json.length).to eq 1
+    expect(json.length).to eq 2
 
     delete "/users/#{@user1.id}/game_histories/#{game1.id}"
     get "/users/#{@user1.id}/game_histories"
     json = JSON.parse(response.body)
+    p json
 
     expect(response).to be_success
-    expect(json.length).to eq 0
+    expect(json["history"].length).to eq 0
 
   end
 
