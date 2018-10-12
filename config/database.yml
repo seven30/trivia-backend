@@ -79,8 +79,4 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
-  host: ec2-54-83-50-145.compute-1.amazonaws.com
-  database: d29negq8jd80rf
-  username: zqzgqdblcdovod
-  password: <%= ENV['DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL']
