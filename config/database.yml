@@ -80,6 +80,6 @@ test:
 #
 production:
   <<: *default
-  database: trivia-backend_production
-  username: trivia-backend
-  password: <%= ENV['TRIVIA-BACKEND_DATABASE_PASSWORD'] %>
+  database: d29negq8jd80rf
+  username: zqzgqdblcdovod
+  password: <%= ENV['023c1d073259529749c93fb4c8706ee4fa7e83d130b790d279cc8093f42621da'] %>
