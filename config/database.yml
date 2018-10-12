@@ -82,4 +82,4 @@ production:
   <<: *default
   database: d29negq8jd80rf
   username: zqzgqdblcdovod
-  password: <%= ENV['023c1d073259529749c93fb4c8706ee4fa7e83d130b790d279cc8093f42621da'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
